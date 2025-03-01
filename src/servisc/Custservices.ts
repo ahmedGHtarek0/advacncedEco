@@ -10,5 +10,7 @@ export const Addcust=async({email,password}:Custsignup)=>{
     if(SerachaboutemailinDb){
         return({data:'ur email is already exits',status:401})
     }
-
+    else{
+        return({data:'ok',status:200})
+    }
 }
