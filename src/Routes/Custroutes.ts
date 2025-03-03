@@ -1,11 +1,22 @@
 import express from 'express'
-import { Addcust } from '../servisc/Custservices'
+import {  adduser, checkotp, Emailvrification } from '../servisc/Custservices'
 
 const router= express()
-router.post('/signupcustomer',async(req,res)=>{
-    const {email,password}=req.body
-    const {data,status}:any= await Addcust({email,password})
+router.post('/Emailvrification',async(req,res)=>{
+    const {email}=req.body
+    const {data,status}:any= await Emailvrification({email})
     res.status(status).send(data)
 })
 
+router.post('/addotp',async(req,res)=>{
+    const {otp}=req.body
+    const {data,status}= await checkotp({otp})
+    res.status(status).send(data)
+})
+
+router.post('/addusers',async(req,res)=>{
+const {name,email,password}=req.body
+const {data,status}=await adduser({name,email,password})
+res.status(status).send(data)
+})
 export default router
