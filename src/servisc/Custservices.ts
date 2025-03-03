@@ -2,6 +2,7 @@ import CustDb from "../DB/curtomerDb";
 import nodemailer from 'nodemailer'
 import OtpDb from "../DB/otpDb";
 import { PassThrough } from "nodemailer/lib/xoauth2";
+import jwt from 'jsonwebtoken'
 interface emialvre{
     email:string
 }
@@ -107,5 +108,11 @@ interface addU{
 export const adduser=async({name,password,email}:addU)=>{
     const addusers= await CustDb.create({name,email,password})
     await addusers.save()
-    return({data:{name,email,password},status:200})
+    const id= addusers._id
+    const accesstoken= genertaeaccesstokenforCust({id})
+    return({data:{accesstoken},status:200})
+}
+
+export const genertaeaccesstokenforCust=(data:any)=>{
+    return(jwt.sign(data,'cust',{expiresIn:'2m'}))
 }

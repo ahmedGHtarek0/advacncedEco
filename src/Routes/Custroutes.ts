@@ -1,5 +1,6 @@
 import express from 'express'
 import {  adduser, checkotp, Emailvrification } from '../servisc/Custservices'
+import { accesstokenmiddwlwareforCust } from '../Middlewares/accesstokenfotCust'
 
 const router= express()
 router.post('/Emailvrification',async(req,res)=>{
@@ -17,6 +18,11 @@ router.post('/addotp',async(req,res)=>{
 router.post('/addusers',async(req,res)=>{
 const {name,email,password}=req.body
 const {data,status}=await adduser({name,email,password})
-res.status(status).send(data)
+const token=data.accesstoken
+res.status(status).json(token);
+})
+router.get('/check',accesstokenmiddwlwareforCust,async(req:any,res)=>{
+    console.log(req.cust._id)
+    res.send(req.cust._id)
 })
 export default router
