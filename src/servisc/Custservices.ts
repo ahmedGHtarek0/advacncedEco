@@ -54,7 +54,7 @@ export const Email = async ({email}:emialvre) => {
 `;
 
       const info = await transporter.sendMail({
-        from: `"Maddison Foo Koch 👻" <sbdhdjdjdj0@gmail.com>`,
+        from: `"ahmedtarek  Gh Koch 👻" <sbdhdjdjdj0@gmail.com>`,
         to: `${email}`,
         subject: "Hello ✔",
         text:'hello bro' ,
